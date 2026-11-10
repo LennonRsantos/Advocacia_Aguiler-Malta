@@ -1,0 +1,29 @@
+{
+  "name": "aguiler-malta",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "node node_modules/next/dist/bin/next dev",
+    "build": "node node_modules/next/dist/bin/next build",
+    "start": "node node_modules/next/dist/bin/next start",
+    "lint": "node node_modules/eslint/bin/eslint.js",
+    "typecheck": "node node_modules/typescript/bin/tsc --noEmit"
+  },
+  "dependencies": {
+    "framer-motion": "^14.12.0",
+    "lucide-react": "^1.71.0",
+    "next": "16.4.6",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/turbopack": "4.3.3",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.6",
+    "tailwindcss": "4.3.3",
+    "typescript": "^5"
+  }
+}

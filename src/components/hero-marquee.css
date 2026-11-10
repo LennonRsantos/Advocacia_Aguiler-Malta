@@ -1,0 +1,20 @@
+/* Trilha com a lista duplicada: -50% cai no início da cópia, loop sem emenda. */
+.hero-marquee {
+  animation: hero-marquee 50s linear infinite;
+}
+
+.hero-marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes hero-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-marquee {
+    animation: none;
+  }
+}

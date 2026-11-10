@@ -1,0 +1,147 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-serif: var(--font-noto-serif-display), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-montserrat), system-ui, sans-serif;
+}
+
+@theme {
+  /* Tokens do Design System (não alterar) */
+  --color-base: #e8dcd1;
+  --color-primary: #402a1d;
+  --color-accent: #bea491;
+  --color-white: #ffffff;
+
+  /* Variações complementares */
+  --color-sand: #f3ece5; /* superfície clara entre base e branco */
+  --color-bronze: #6f5544; /* accent escurecido para texto sobre fundos claros (contraste 5:1) */
+  --color-espresso: #2e1e14; /* primary aprofundado para o rodapé */
+
+  /* Cor de assinatura: único acento de destaque (ícones, linhas, hovers, card de autoridade).
+     Contraste: 5,2:1 sobre base, 5,9:1 com sand sobre ela. Não usar sobre fundos escuros (primary/espresso). */
+  --color-terracotta: #8b4a34;
+  --color-terracotta-deep: #6f3a28; /* hover/pressed */
+
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-rise: rise 0.9s var(--ease-soft) both;
+  --animate-fade: fade 1.2s var(--ease-soft) both;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Efeitos adaptados do Magic UI (magicui.design, licença MIT) */
+  --animate-blur-fade: blur-fade 1s var(--ease-soft) both;
+  --animate-shiny-text: shiny-text 9s ease-in-out infinite;
+  --animate-shine: shine 14s linear infinite;
+
+  @keyframes blur-fade {
+    from {
+      opacity: 0;
+      filter: blur(10px);
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      filter: none;
+      transform: none;
+    }
+  }
+  /* Uma passada em ~3s e pausa; nas duas pontas o reflexo fica fora do texto. */
+  @keyframes shiny-text {
+    0% {
+      background-position: 100% 0;
+    }
+    35%,
+    100% {
+      background-position: 0 0;
+    }
+  }
+  @keyframes shine {
+    0%,
+    100% {
+      background-position: 0% 0%;
+    }
+    50% {
+      background-position: 100% 100%;
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background-color: var(--color-base);
+    color: var(--color-primary);
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+  }
+
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-serif);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a,
+  button {
+    touch-action: manipulation;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-bronze);
+    outline-offset: 3px;
+  }
+
+  .on-dark :focus-visible,
+  .on-dark:focus-visible {
+    outline-color: var(--color-accent);
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-primary);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
