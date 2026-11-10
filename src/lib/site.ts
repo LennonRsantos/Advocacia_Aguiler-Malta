@@ -10,6 +10,7 @@ export const site = {
     eduarda: "OAB/RS nº 139.428",
   },
   whatsapp: { number: "5553984021235" },
+  instagram: "https://www.instagram.com/aguilermalta_advocacia/", // sem parâmetros de rastreio (utm)
   email: "aguilermalta.adv@gmail.com",
   address: {
     street: "Rua República do Líbano, 35",
