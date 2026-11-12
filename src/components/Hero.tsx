@@ -13,8 +13,8 @@ const commitments = [
   { title: "Escuta atenta", text: "Cada história é compreendida antes de qualquer orientação.", icon: ListeningIcon },
   { title: "Linguagem clara", text: "Etapas, prazos e possibilidades explicados sem juridiquês.", icon: NibIcon },
   { title: "Sigilo profissional", text: "Discrição em todas as conversas e documentos.", icon: SealedLetterIcon },
-  { title: "Estratégia sob medida", text: "Cada caso recebe um plano próprio, do acordo à via judicial.", icon: CompassIcon },
-  { title: "Acompanhamento próximo", text: "Você sabe o que acontece em cada etapa do processo.", icon: LinkedRingsIcon },
+  { title: "Estratégia sob medida", text: "Cada caso recebe um plano próprio, do acordo à defesa no tribunal.", icon: CompassIcon },
+  { title: "Acompanhamento próximo", text: "Você sabe o que acontece em cada etapa, do inquérito à sentença.", icon: LinkedRingsIcon },
 ];
 
 export function Hero() {
@@ -31,14 +31,15 @@ export function Hero() {
             {/* font-semibold explícito: o bolder padrão sobre peso 300 só chega a 400; 600 marca a ênfase. */}
             <strong className="mt-1 block animate-blur-fade font-semibold [animation-delay:180ms]">
               <AnimatedShinyText className="[animation-delay:1.6s]">
-                Firmeza para proteger sua família e seu patrimônio.
+                Firmeza para defender sua família e sua liberdade.
               </AnimatedShinyText>
             </strong>
           </h1>
           <p
             className="mt-8 max-w-lg animate-rise text-[1.0625rem] leading-[1.7] text-primary/80 sm:text-lg [animation-delay:320ms]"
           >
-            Especialistas em Direito de Família, Divórcios, Pensão Alimentícia e Inventários.
+            Direito de Família e Direito Penal: divórcio, guarda, pensão alimentícia, inventário e defesa criminal da
+            investigação ao julgamento.
           </p>
           <div className="mt-10 flex animate-rise flex-col gap-5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-9 [animation-delay:440ms]">
             <a

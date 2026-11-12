@@ -124,7 +124,7 @@ export function CircularTestimonials({ testimonials, autoplay = true }: Circular
             <div
               key={t.name}
               aria-hidden={index !== activeIndex}
-              className="absolute inset-0 overflow-hidden bg-espresso shadow-[0_10px_30px_rgba(0,0,0,0.2)]"
+              className="absolute inset-0 overflow-hidden rounded-lg bg-espresso shadow-[0_10px_30px_rgba(0,0,0,0.2)]"
               style={getImageStyle(index)}
             >
               <Image

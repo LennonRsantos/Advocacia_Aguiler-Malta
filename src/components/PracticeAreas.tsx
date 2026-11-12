@@ -24,15 +24,22 @@ const areas: Area[] = [
     featured: true,
     description:
       "Condução cuidadosa de questões familiares, buscando soluções equilibradas e, sempre que possível, construídas em consenso.",
-    topics: ["Divórcio", "Guarda", "Pensão alimentícia", "União estável", "Partilha de bens", "Regulamentação de convivência"],
+    topics: ["Divórcio", "Guarda", "Adoção", "Pensão alimentícia", "União estável", "Partilha de bens", "Regulamentação de convivência"],
   },
   {
     title: "Direito Penal",
     icon: ShieldCheck,
     featured: true,
     description:
-      "Defesa técnica e acompanhamento jurídico ao longo do procedimento criminal, desde a investigação até os recursos.",
-    topics: ["Inquérito policial", "Prisão em flagrante", "Audiência de custódia", "Habeas corpus", "Defesa em ação penal", "Recursos"],
+      "Defesa técnica e orientação estratégica em todas as fases da persecução penal, da investigação à execução da pena.",
+    topics: [
+      "Flagrante e audiência de custódia",
+      "Inquérito policial",
+      "Defesa em ação penal",
+      "Tribunal do Júri",
+      "Liberdade e habeas corpus",
+      "Execução penal",
+    ],
   },
   {
     title: "Direito das Sucessões",
