@@ -32,7 +32,7 @@ export async function Footer({ home = "" }: { home?: string }) {
             Trabalhista.
           </p>
           <p className="mt-4 text-sm font-medium tracking-wide text-accent">
-            {site.oab.daiane} · {site.oab.eduarda}
+            {site.oab.daiane} · {site.oab.malta}
           </p>
         </div>
 

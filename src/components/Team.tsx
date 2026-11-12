@@ -1,5 +1,5 @@
-import daiane from "../../public/img/Daiane.jpeg";
-import novaAdvogada from "../../public/img/Eduarda.jpeg";
+import Daiane from "../../public/img/Daiane.jpeg";
+import Eduarda from "../../public/img/Eduarda.jpeg";
 import Malta from "@/assets/images/malta.jpg";
 import { CircularTestimonials, type Testimonial } from "@/components/ui/circular-testimonials";
 import { site } from "@/lib/site";
@@ -11,22 +11,22 @@ const team: Testimonial[] = [
     designation: `Sócia fundadora · ${site.oab.daiane}`,
     quote:
       "Dedica-se à advocacia criminal, atuando na defesa de seus clientes desde a fase investigativa até o julgamento, com compromisso com a ampla defesa, atuação estratégica e acompanhamento atento de cada etapa processual. Sua prática é pautada pela firmeza técnica, responsabilidade e busca pela garantia dos direitos e das liberdades individuais.",
-    src: daiane,
+    src: Daiane,
   },
   {
     name: "Dra. Eduarda Gauterio Malta",
-    designation: `Sócia fundadora · ${site.oab.eduarda}`,
+    designation: `Sócia fundadora · ${site.oab.malta}`,
     quote:
       "Atua nas áreas do Direito Civil, Família e Sucessões, com foco na resolução de conflitos, proteção patrimonial e defesa dos direitos individuais e familiares. Conduz cada demanda com responsabilidade, estratégia e atenção às particularidades de cada caso, aliando conhecimento jurídico, atendimento humanizado e atuação firme.",
     src: Malta,
   },
   {
     // Provisório: aguardando nome, OAB e bio reais.
-    name: "Dra. Nome Sobrenome",
-    designation: "Advogada · OAB/RS nº 000.000",
+    name: "Dra. Eduarda Farias Fonseca",
+    designation: `Advogada · ${site.oab.eduarda}`,
     quote:
-      "Texto provisório. Em breve, mais informações sobre a atuação e a trajetória profissional desta advogada.",
-    src: novaAdvogada,
+      "Atua nas áreas do Direito do Trabalho e Direito Previdenciário, com foco na defesa dos direitos e interesses dos trabalhadores e segurados. Desenvolve sua atuação com responsabilidade, dedicação e atenção às particularidades de cada demanda, buscando assegurar o reconhecimento e a efetivação dos direitos de seus clientes. Aliando conhecimento jurídico, atendimento humanizado e atuação comprometida, conduz cada caso com ética, estratégia e firmeza.",
+    src: Eduarda,
   },
 ];
 

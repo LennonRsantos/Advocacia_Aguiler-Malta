@@ -7,7 +7,8 @@ export const site = {
     "Escritório de advocacia conduzido por advogadas, com atuação em Direito de Família, Penal, Sucessões, Civil e Trabalhista. Atendimento humanizado e orientação jurídica clara.",
   oab: {
     daiane: "OAB/RS nº 139.428",
-    eduarda: "OAB/RS nº 139.679",
+    malta: "OAB/RS nº 139.679",
+    eduarda: "OAB/RS nº 142.460",
   },
   whatsapp: { number: "5553984021235" },
   instagram: "https://www.instagram.com/aguilermalta_advocacia/", // sem parâmetros de rastreio (utm)

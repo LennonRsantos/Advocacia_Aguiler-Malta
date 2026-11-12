@@ -20,7 +20,7 @@ const principles = [
 
 const lawyers = [
   { name: "Dra. Daiane Aguiler", oab: site.oab.daiane },
-  { name: "Dra. Eduarda Gautério Malta", oab: site.oab.eduarda },
+  { name: "Dra. Eduarda Gautério Malta", oab: site.oab.malta },
 ];
 
 export function About() {

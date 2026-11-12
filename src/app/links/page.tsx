@@ -114,7 +114,7 @@ export default function LinksPage() {
 
       <footer className="animate-fade pb-8 text-center text-xs leading-relaxed text-primary/65 [animation-delay:900ms]">
         <p>{site.oab.daiane}</p>
-        <p>{site.oab.eduarda}</p>
+        <p>{site.oab.malta}</p>
         <Link href="/politica-de-privacidade" className="mt-3 inline-block py-2 underline underline-offset-4 hover:text-terracotta">
           Política de Privacidade
         </Link>
