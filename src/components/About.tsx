@@ -1,6 +1,7 @@
 import Image from "next/image";
 import sociais from "../../public/img/malta e aguiler.jpeg";
 import { site } from "@/lib/site";
+import { Accordion } from "./Accordion";
 
 const principles = [
   {
@@ -19,7 +20,7 @@ const principles = [
 
 const lawyers = [
   { name: "Dra. Daiane Aguiler", oab: site.oab.daiane },
-  { name: "Dra. Eduarda Gautério Malta", oab: site.oab.eduarda },
+  { name: "Dra. Eduarda Gauterio Malta", oab: site.oab.eduarda },
 ];
 
 export function About() {
@@ -42,7 +43,7 @@ export function About() {
               alt="Advogadas Aguiler e Malta lado a lado no escritório"
               fill
               placeholder="blur"
-              sizes="(min-width: 1024px) 40vw, 100vw"
+              sizes="(min-width: 1280px) 32rem, (min-width: 1024px) 40vw, (min-width: 640px) 36rem, calc(80vw - 2rem)"
               className="object-cover object-[50%_25%] filter-[sepia(0.22)_saturate(0.75)]"
             />
             <div aria-hidden="true" className="absolute inset-0 bg-primary/15 mix-blend-multiply" />
@@ -81,14 +82,13 @@ export function About() {
             </p>
           </div>
 
-          <dl className="mt-12 border-t border-base/15">
-            {principles.map((p) => (
-              <div key={p.title} className="grid gap-1 border-b border-base/15 py-5 sm:grid-cols-[11rem_1fr] sm:gap-6">
-                <dt className="font-serif text-xl text-white">{p.title}</dt>
-                <dd className="text-[0.9375rem] leading-relaxed text-base/80">{p.text}</dd>
-              </div>
-            ))}
-          </dl>
+          <div className="mt-12">
+            <Accordion
+              dark
+              defaultOpen={null}
+              items={principles.map((p) => ({ question: p.title, answer: p.text }))}
+            />
+          </div>
         </div>
       </div>
     </section>

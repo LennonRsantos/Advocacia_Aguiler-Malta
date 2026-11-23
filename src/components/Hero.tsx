@@ -7,7 +7,6 @@ import { WhatsAppIcon } from "./icons/WhatsAppIcon";
 import { CompassIcon, LinkedRingsIcon, ListeningIcon, NibIcon, SealedLetterIcon } from "./icons/PillarIcons";
 import { AnimatedShinyText } from "./magicui/AnimatedShinyText";
 import { ShineBorder } from "./magicui/ShineBorder";
-import "./hero-marquee.css";
 
 const commitments = [
   { title: "Escuta atenta", text: "Cada história é compreendida antes de qualquer orientação.", icon: ListeningIcon },
@@ -31,7 +30,7 @@ export function Hero() {
             {/* font-semibold explícito: o bolder padrão sobre peso 300 só chega a 400; 600 marca a ênfase. */}
             <strong className="mt-1 block animate-blur-fade font-semibold [animation-delay:180ms]">
               <AnimatedShinyText className="[animation-delay:1.6s]">
-                Firmeza para proteger sua família e seu patrimônio.
+                Firmeza para defender seus direitos e sua liberdade.
               </AnimatedShinyText>
             </strong>
           </h1>
@@ -82,7 +81,11 @@ export function Hero() {
             <Image
               src={logoAM}
               alt=""
-              sizes="(min-width: 1024px) 62vw, 153vw"
+              sizes="(min-width: 1280px) 46rem, (min-width: 1024px) 62vw, (min-width: 640px) 43rem, min(143vw - 3.6rem, 37rem)"
+              // Marca-d'água a 45% de opacidade: qualidade menor não é perceptível.
+              quality={50}
+              // Na primeira dobra: sem lazy. Prioridade normal para não disputar banda com a foto (LCP).
+              loading="eager"
               className="absolute left-1/2 top-[60%] h-auto w-[143%] max-w-none -translate-x-1/2 translate-y-[-47%] animate-fade opacity-45 [animation-delay:150ms] sm:w-[153%]"
             />
           </div>
@@ -91,7 +94,7 @@ export function Hero() {
             alt="As advogadas Aguiler e Malta, sócias do escritório"
             fill
             preload
-            sizes="(min-width: 1024px) 40vw, (min-width: 640px) 28rem, 90vw"
+            sizes="(min-width: 1280px) 34rem, (min-width: 1024px) 40vw, (min-width: 640px) 28rem, min(100vw - 2.5rem, 26rem)"
             // Escala a partir das cabeças (14%) mantém o alinhamento com o arco; o clip corta o excesso abaixo da base (0,14 + 0,86/1,08).
             className="z-10 origin-[50%_14%] scale-[1.08] animate-rise object-contain object-bottom [animation-delay:300ms] [clip-path:inset(0_0_6.4%_0)] filter-[sepia(0.12)_saturate(0.92)_drop-shadow(0_16px_24px_rgb(46_30_20/0.18))]"
           />
@@ -100,7 +103,7 @@ export function Hero() {
 
       {/* Bordas esmaecidas indicam que a faixa continua; pausa no hover para leitura. Sem animação: rolagem manual. */}
       <div className="relative overflow-hidden border-t border-primary/15 py-10 mask-[linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)] motion-reduce:overflow-x-auto">
-        <div className="hero-marquee flex w-max">
+        <div className="flex w-max motion-safe:animate-marquee hover:[animation-play-state:paused]">
           {[false, true].map((copy) => (
             <ul key={String(copy)} aria-hidden={copy || undefined} className={`flex ${copy ? "motion-reduce:hidden" : ""}`}>
               {commitments.map(({ title, text, icon: Icon }) => (

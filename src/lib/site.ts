@@ -8,6 +8,7 @@ export const site = {
   oab: {
     daiane: "OAB/RS nº 139.428",
     eduarda: "OAB/RS nº 139.679",
+    fonseca: "OAB/RS nº 142.460",
   },
   whatsapp: { number: "5553984021235" },
   instagram: "https://www.instagram.com/aguilermalta_advocacia/", // sem parâmetros de rastreio (utm)

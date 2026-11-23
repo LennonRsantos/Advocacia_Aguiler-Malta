@@ -49,7 +49,7 @@ export function Header() {
   return (
     <header className="on-dark fixed inset-x-0 top-0 z-50 border-b border-base/10 bg-espresso">
       <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-12">
-        <a href="#inicio" className="-m-2 p-2 text-base" aria-label="Aguiler & Malta Advocacia, voltar ao início">
+        <a href="#inicio" className="-m-2 p-2 text-base" aria-label="Aguiler & Malta advocacia, voltar ao início">
           <Logo tone="light" />
         </a>
 

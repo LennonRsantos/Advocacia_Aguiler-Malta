@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion, type Variants } from "framer-motion";
+import { AnimatePresence, LazyMotion, m, useReducedMotion, type Variants } from "framer-motion";
 import { Loader2, Send } from "lucide-react";
 import Link from "next/link";
 import { useState, type FormEvent, type ReactNode } from "react";
@@ -9,6 +9,7 @@ import { site, whatsappLink } from "@/lib/site";
 type Status = "idle" | "sending" | "ok" | "error";
 
 const ease = [0.22, 1, 0.36, 1] as const;
+const loadFeatures = () => import("@/lib/motion-features").then((r) => r.default);
 
 const container: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -24,7 +25,7 @@ const fieldClass =
 
 function Field({ label, className = "", children }: { label: string; className?: string; children: ReactNode }) {
   return (
-    <motion.label variants={item} className={`group relative block ${className}`}>
+    <m.label variants={item} className={`group relative block ${className}`}>
       <span className="text-xs font-medium tracking-wide text-primary/65 transition-colors duration-300 group-focus-within:text-terracotta">
         {label}
       </span>
@@ -34,7 +35,7 @@ function Field({ label, className = "", children }: { label: string; className?:
         aria-hidden="true"
         className="pointer-events-none absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-terracotta motion-safe:transition-transform motion-safe:duration-500 peer-focus:scale-x-100"
       />
-    </motion.label>
+    </m.label>
   );
 }
 
@@ -62,7 +63,8 @@ export function ContactForm() {
   }
 
   return (
-    <motion.form
+    <LazyMotion features={loadFeatures} strict>
+    <m.form
       onSubmit={onSubmit}
       aria-labelledby="form-title"
       variants={container}
@@ -71,12 +73,12 @@ export function ContactForm() {
       viewport={{ once: true, amount: 0.3 }}
       className="border border-primary/10 bg-white p-6 transition-shadow duration-500 hover:shadow-[0_24px_48px_-24px_rgb(46_30_20/0.25)] sm:p-10 lg:col-span-7 lg:col-start-6"
     >
-      <motion.div variants={item}>
+      <m.div variants={item}>
         <h3 id="form-title" className="text-2xl font-semibold text-primary">
           Envie sua mensagem
         </h3>
         <p className="mt-2 text-sm leading-relaxed text-primary/65">Todos os campos são obrigatórios.</p>
-      </motion.div>
+      </m.div>
 
       <input type="hidden" name="access_key" value={site.web3formsKey} />
       <input type="hidden" name="from_name" value={`Site ${site.name}`} />
@@ -101,7 +103,7 @@ export function ContactForm() {
         </Field>
       </div>
 
-      <motion.div variants={item} className="mt-10 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+      <m.div variants={item} className="mt-10 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-xs leading-relaxed text-primary/65">
           Seus dados são tratados com sigilo.{" "}
           <Link href="/politica-de-privacidade" className="underline underline-offset-4 hover:text-terracotta">
@@ -124,13 +126,13 @@ export function ContactForm() {
             />
           )}
         </button>
-      </motion.div>
+      </m.div>
 
       {/* Região sempre montada para o leitor de tela anunciar a mudança. */}
       <div role="status" aria-live="polite">
         <AnimatePresence mode="wait">
           {(status === "ok" || status === "error") && (
-            <motion.p
+            <m.p
               key={status}
               initial={reduce ? false : { opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -151,10 +153,11 @@ export function ContactForm() {
                   .
                 </>
               )}
-            </motion.p>
+            </m.p>
           )}
         </AnimatePresence>
       </div>
-    </motion.form>
+    </m.form>
+    </LazyMotion>
   );
 }

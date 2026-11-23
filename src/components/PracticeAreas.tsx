@@ -30,8 +30,16 @@ const areas: Area[] = [
     title: "Direito Penal",
     icon: ShieldCheck,
     featured: true,
-    description: "Defesa técnica e acompanhamento jurídico ao longo do procedimento criminal.",
-    topics: ["Defesa criminal", "Acompanhamento jurídico"],
+    description:
+      "Defesa técnica e acompanhamento especializado em todas as fases da persecução penal, da investigação à execução da pena.",
+    topics: [
+      "Flagrantes e audiências de custódia",
+      "Inquéritos policiais",
+      "Ações penais e processos criminais",
+      "Tribunal do Júri",
+      "Execução penal",
+      "Habeas corpus e pedidos de liberdade",
+    ],
   },
   {
     title: "Direito das Sucessões",

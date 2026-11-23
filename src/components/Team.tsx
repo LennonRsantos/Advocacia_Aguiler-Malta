@@ -1,4 +1,5 @@
 import daiane from "../../public/img/Daiane.jpeg";
+import fonseca from "../../public/img/Eduarda.jpeg";
 import Malta from "@/assets/images/malta.jpg";
 import { CircularTestimonials, type Testimonial } from "@/components/ui/circular-testimonials";
 import { site } from "@/lib/site";
@@ -18,6 +19,14 @@ const team: Testimonial[] = [
     quote:
       "Atua nas áreas do Direito Civil, Família e Sucessões, com foco na resolução de conflitos, proteção patrimonial e defesa dos direitos individuais e familiares. Conduz cada demanda com responsabilidade, estratégia e atenção às particularidades de cada caso, aliando conhecimento jurídico, atendimento humanizado e atuação firme.",
     src: Malta,
+  },
+  {
+    name: "Dra. Eduarda Farias Fonseca",
+    designation: `Advogada · ${site.oab.fonseca}`,
+    quote:
+      "Atua nas áreas do Direito do Trabalho e Direito Previdenciário, com foco na defesa dos direitos e interesses dos trabalhadores e segurados. Desenvolve sua atuação com responsabilidade, dedicação e atenção às particularidades de cada demanda, buscando assegurar o reconhecimento e a efetivação dos direitos de seus clientes. Aliando conhecimento jurídico, atendimento humanizado e atuação comprometida, conduz cada caso com ética, estratégia e firmeza.",
+    src: fonseca,
+    position: "50% 15%",
   },
 ];
 

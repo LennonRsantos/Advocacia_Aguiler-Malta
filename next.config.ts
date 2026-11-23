@@ -20,6 +20,9 @@ const nextConfig: NextConfig = {
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
+  images: { qualities: [50, 75, 90], formats: ["image/avif", "image/webp"] },
+  // CSS do Tailwind é pequeno: inline no <head> elimina a requisição que bloqueia a renderização.
+  experimental: { inlineCss: true },
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {
