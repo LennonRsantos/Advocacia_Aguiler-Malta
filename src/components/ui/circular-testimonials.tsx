@@ -1,9 +1,9 @@
 // Adaptado do Circular Testimonials (21st.dev): estilos em Tailwind, next/image, teclado restrito ao carrossel.
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, LazyMotion, m, useReducedMotion } from "framer-motion";
 import Image, { type StaticImageData } from "next/image";
-import { useCallback, useEffect, useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
+import { useCallback, useEffect, useId, useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
 
 export interface Testimonial {
   quote: string;
@@ -30,30 +30,43 @@ function calculateGap(width: number) {
 }
 
 const transition = "all 0.8s cubic-bezier(.4,2,.3,1)";
+const loadFeatures = () => import("@/lib/motion-features").then((r) => r.default);
 
 export function CircularTestimonials({ testimonials, autoplay = true }: CircularTestimonialsProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [containerWidth, setContainerWidth] = useState(1200);
   const [paused, setPaused] = useState(false);
   const [stopped, setStopped] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
   const imageContainerRef = useRef<HTMLDivElement>(null);
+  const hintId = useId();
   const touchStartX = useRef<number | null>(null);
   const reduceMotion = useReducedMotion();
 
   const length = testimonials.length;
   const active = testimonials[activeIndex];
 
+  // ResizeObserver entrega a largura sem forçar layout síncrono (offsetWidth forçava reflow).
   useEffect(() => {
-    const handleResize = () => {
-      if (imageContainerRef.current) setContainerWidth(imageContainerRef.current.offsetWidth);
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    const el = imageContainerRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(([entry]) => setContainerWidth(entry.contentRect.width));
+    ro.observe(el);
+    return () => ro.disconnect();
   }, []);
 
-  // Para no hover/foco, após navegação manual e com movimento reduzido.
-  const running = autoplay && !paused && !stopped && !reduceMotion;
+  // Autoplay só com o carrossel na tela: evita trabalho na main thread fora da vista.
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting));
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  // Para no hover/foco, após navegação manual, fora da tela e com movimento reduzido.
+  const running = autoplay && visible && !paused && !stopped && !reduceMotion;
   useEffect(() => {
     if (!running) return;
     const id = setInterval(() => setActiveIndex((prev) => (prev + 1) % length), 5000);
@@ -100,10 +113,13 @@ export function CircularTestimonials({ testimonials, autoplay = true }: Circular
   }
 
   return (
+    <LazyMotion features={loadFeatures} strict>
     <div
+      ref={rootRef}
       role="region"
       aria-roledescription="carrossel"
       aria-label="Advogadas do escritório"
+      aria-describedby={hintId}
       tabIndex={0}
       onKeyDown={handleKey}
       onMouseEnter={() => setPaused(true)}
@@ -119,6 +135,9 @@ export function CircularTestimonials({ testimonials, autoplay = true }: Circular
       }}
       className="touch-pan-y w-full max-w-4xl outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-8 focus-visible:ring-offset-sand"
     >
+      <p id={hintId} className="sr-only">
+        Use as setas esquerda e direita do teclado para ver as outras advogadas.
+      </p>
       <div className="grid gap-20 md:grid-cols-2">
         <div ref={imageContainerRef} className="relative h-96 w-full perspective-[1000px]">
           {testimonials.map((t, index) => {
@@ -143,7 +162,7 @@ export function CircularTestimonials({ testimonials, autoplay = true }: Circular
                 placeholder="blur"
                 quality={90}
                 style={{ objectPosition: t.position }}
-                sizes="(min-width: 768px) 28rem, 100vw"
+                sizes="(min-width: 768px) 26rem, 90vw"
                 className="object-cover filter-[sepia(0.22)_saturate(0.75)]"
               />
             </div>
@@ -153,8 +172,8 @@ export function CircularTestimonials({ testimonials, autoplay = true }: Circular
 
         <div className="flex flex-col justify-center">
           <div aria-live="polite">
-            <AnimatePresence mode="wait">
-              <motion.div
+            <AnimatePresence mode="wait" initial={false}>
+              <m.div
                 key={activeIndex}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -163,24 +182,20 @@ export function CircularTestimonials({ testimonials, autoplay = true }: Circular
               >
                 <h3 className="mb-1 font-serif font-semibold text-[1.75rem] text-primary">{active.name}</h3>
                 <p className="mb-8 text-sm font-medium tracking-wide text-bronze">{active.designation}</p>
-                <p className="text-lg leading-[1.75] text-primary/85">
-                  {active.quote.split(" ").map((word, i) => (
-                    <motion.span
-                      key={i}
-                      initial={reduceMotion ? false : { filter: "blur(10px)", opacity: 0, y: 5 }}
-                      animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
-                      transition={{ duration: 0.22, ease: "easeInOut", delay: 0.025 * i }}
-                      className="inline-block"
-                    >
-                      {word}&nbsp;
-                    </motion.span>
-                  ))}
-                </p>
-              </motion.div>
+                <m.p
+                  initial={reduceMotion ? false : { opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
+                  className="text-lg leading-[1.75] text-primary/85"
+                >
+                  {active.quote}
+                </m.p>
+              </m.div>
             </AnimatePresence>
           </div>
         </div>
       </div>
     </div>
+    </LazyMotion>
   );
 }

@@ -43,7 +43,7 @@ export function About() {
               alt="Advogadas Aguiler e Malta lado a lado no escritório"
               fill
               placeholder="blur"
-              sizes="(min-width: 1024px) 40vw, 100vw"
+              sizes="(min-width: 1280px) 32rem, (min-width: 1024px) 40vw, (min-width: 640px) 36rem, calc(80vw - 2rem)"
               className="object-cover object-[50%_25%] filter-[sepia(0.22)_saturate(0.75)]"
             />
             <div aria-hidden="true" className="absolute inset-0 bg-primary/15 mix-blend-multiply" />

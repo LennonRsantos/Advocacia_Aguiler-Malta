@@ -24,12 +24,14 @@
 
   --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
 
+  /* Entradas partem de opacity 0.01, não 0: o Chrome ignora pinturas com opacity 0 no LCP e só
+     registraria o hero bem depois de visível. 0.01 é imperceptível. */
   --animate-rise: rise 0.9s var(--ease-soft) both;
   --animate-fade: fade 1.2s var(--ease-soft) both;
 
   @keyframes rise {
     from {
-      opacity: 0;
+      opacity: 0.01;
       transform: translateY(18px);
     }
     to {
@@ -39,7 +41,7 @@
   }
   @keyframes fade {
     from {
-      opacity: 0;
+      opacity: 0.01;
     }
     to {
       opacity: 1;
@@ -53,13 +55,11 @@
 
   @keyframes blur-fade {
     from {
-      opacity: 0;
-      filter: blur(10px);
+      opacity: 0.01;
       transform: translateY(14px);
     }
     to {
       opacity: 1;
-      filter: none;
       transform: none;
     }
   }
@@ -85,13 +85,23 @@
       transform: translateX(420%) skewX(-18deg);
     }
   }
+  /* Equivale a background-position 0%→100% com background-size 300%, mas via transform (composto na GPU). */
   @keyframes shine {
     0%,
     100% {
-      background-position: 0% 0%;
+      transform: none;
     }
     50% {
-      background-position: 100% 100%;
+      transform: translate(-66.667%, -66.667%);
+    }
+  }
+
+  /* Trilha com a lista duplicada: -50% cai no início da cópia, loop sem emenda. */
+  --animate-marquee: marquee 50s linear infinite;
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
     }
   }
 }

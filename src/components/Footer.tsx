@@ -92,7 +92,7 @@ export async function Footer({ home = "" }: { home?: string }) {
             <p>
               © {year} {site.fullName}. Todos os direitos reservados.
             </p>
-            <p className="mt-1 text-xs text-base/50">
+            <p className="mt-1 text-xs text-base/65">
               Desenvolvido por{" "}
               <a
                 href="https://lennonrsantos.vercel.app/links"

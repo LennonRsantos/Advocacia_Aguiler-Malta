@@ -82,11 +82,11 @@ export function Contact() {
           <dl className="mt-8 sm:mt-10 space-y-4 border-primary/10 sm:border-t sm:pt-8">
             {rows.map(({ label, icon: Icon, value, desktopOnly }) => (
               <div key={label} className={`${desktopOnly ? "hidden sm:flex" : "flex"} gap-4`}>
-                <Icon aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-terracotta" strokeWidth={1.5} />
-                <div className="min-w-0">
-                  <dt className="sr-only">{label}</dt>
-                  <dd className="text-sm leading-relaxed tabular-nums text-primary">{value}</dd>
-                </div>
+                <dt className="mt-0.5 shrink-0">
+                  <Icon aria-hidden="true" className="block size-4 text-terracotta" strokeWidth={1.5} />
+                  <span className="sr-only">{label}</span>
+                </dt>
+                <dd className="min-w-0 text-sm leading-relaxed tabular-nums text-primary">{value}</dd>
               </div>
             ))}
           </dl>
