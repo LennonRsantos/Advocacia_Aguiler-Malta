@@ -106,7 +106,7 @@ export function Faq() {
           </div>
         </div>
         <div className="lg:col-span-7 lg:col-start-6">
-          <Accordion items={faqs} />
+          <Accordion items={faqs} defaultOpen={null} />
         </div>
       </div>
     </section>

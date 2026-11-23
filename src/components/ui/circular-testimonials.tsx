@@ -1,7 +1,6 @@
 // Adaptado do Circular Testimonials (21st.dev): estilos em Tailwind, next/image, teclado restrito ao carrossel.
 "use client";
 
-import { ArrowLeft, ArrowRight } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Image, { type StaticImageData } from "next/image";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
@@ -11,6 +10,8 @@ export interface Testimonial {
   name: string;
   designation: string;
   src: StaticImageData;
+  /** CSS object-position, ex. "50% 15%" para não cortar a cabeça. */
+  position?: string;
 }
 
 interface CircularTestimonialsProps {
@@ -120,11 +121,19 @@ export function CircularTestimonials({ testimonials, autoplay = true }: Circular
     >
       <div className="grid gap-20 md:grid-cols-2">
         <div ref={imageContainerRef} className="relative h-96 w-full perspective-[1000px]">
-          {testimonials.map((t, index) => (
+          {testimonials.map((t, index) => {
+            const isPrev = index !== activeIndex && index === (activeIndex - 1 + length) % length;
+            const isNext = index !== activeIndex && index === (activeIndex + 1) % length;
+            return (
             <div
               key={t.name}
               aria-hidden={index !== activeIndex}
-              className="absolute inset-0 overflow-hidden rounded-lg bg-espresso shadow-[0_10px_30px_rgba(0,0,0,0.2)]"
+              onPointerUp={(e) => {
+                if (e.pointerType !== "mouse") return; // celular segue só com swipe
+                if (isPrev) handlePrev();
+                else if (isNext) handleNext();
+              }}
+              className={`absolute inset-0 overflow-hidden bg-espresso shadow-[0_10px_30px_rgba(0,0,0,0.2)] ${isPrev || isNext ? "cursor-pointer" : ""}`}
               style={getImageStyle(index)}
             >
               <Image
@@ -132,14 +141,17 @@ export function CircularTestimonials({ testimonials, autoplay = true }: Circular
                 alt={t.name}
                 fill
                 placeholder="blur"
+                quality={90}
+                style={{ objectPosition: t.position }}
                 sizes="(min-width: 768px) 28rem, 100vw"
                 className="object-cover filter-[sepia(0.22)_saturate(0.75)]"
               />
             </div>
-          ))}
+            );
+          })}
         </div>
 
-        <div className="flex flex-col justify-between">
+        <div className="flex flex-col justify-center">
           <div aria-live="polite">
             <AnimatePresence mode="wait">
               <motion.div
@@ -166,23 +178,6 @@ export function CircularTestimonials({ testimonials, autoplay = true }: Circular
                 </p>
               </motion.div>
             </AnimatePresence>
-          </div>
-
-          <div className="hidden gap-6 md:flex">
-            {[
-              { label: "Advogada anterior", onClick: handlePrev, Icon: ArrowLeft },
-              { label: "Próxima advogada", onClick: handleNext, Icon: ArrowRight },
-            ].map(({ label, onClick, Icon }) => (
-              <button
-                key={label}
-                type="button"
-                onClick={onClick}
-                aria-label={label}
-                className="flex size-11 cursor-pointer items-center justify-center rounded-full bg-primary text-base transition-colors duration-300 hover:bg-terracotta focus-visible:bg-terracotta focus-visible:outline-none"
-              >
-                <Icon aria-hidden="true" className="size-5" />
-              </button>
-            ))}
           </div>
         </div>
       </div>

@@ -24,21 +24,21 @@ const areas: Area[] = [
     featured: true,
     description:
       "Condução cuidadosa de questões familiares, buscando soluções equilibradas e, sempre que possível, construídas em consenso.",
-    topics: ["Divórcio", "Guarda", "Adoção", "Pensão alimentícia", "União estável", "Partilha de bens", "Regulamentação de convivência"],
+    topics: ["Divórcio", "Guarda", "Pensão alimentícia", "Questões familiares"],
   },
   {
     title: "Direito Penal",
     icon: ShieldCheck,
     featured: true,
     description:
-      "Defesa técnica e orientação estratégica em todas as fases da persecução penal, da investigação à execução da pena.",
+      "Defesa técnica e acompanhamento especializado em todas as fases da persecução penal, da investigação à execução da pena.",
     topics: [
-      "Flagrante e audiência de custódia",
-      "Inquérito policial",
-      "Defesa em ação penal",
+      "Flagrantes e audiências de custódia",
+      "Inquéritos policiais",
+      "Ações penais e processos criminais",
       "Tribunal do Júri",
-      "Liberdade e habeas corpus",
       "Execução penal",
+      "Habeas corpus e pedidos de liberdade",
     ],
   },
   {
@@ -46,20 +46,19 @@ const areas: Area[] = [
     icon: ScrollText,
     description:
       "Organização da transmissão do patrimônio com segurança jurídica, no inventário ou no planejamento feito em vida.",
-    topics: ["Inventário judicial", "Inventário extrajudicial", "Testamentos", "Planejamento sucessório", "Partilha de herança"],
+    topics: ["Inventários", "Testamentos", "Planejamento sucessório"],
   },
   {
     title: "Direito Civil",
     icon: FileSignature,
     description: "Assessoria em relações civis e patrimoniais, da análise de contratos à reparação de danos.",
-    topics: ["Contratos", "Indenizações", "Responsabilidade civil", "Cobranças", "Direito de vizinhança"],
+    topics: ["Contratos", "Indenizações", "Responsabilidade civil"],
   },
   {
     title: "Direito Trabalhista",
     icon: Briefcase,
-    description:
-      "Orientação sobre direitos e deveres nas relações de trabalho, com análise de vínculo e verbas antes de qualquer decisão.",
-    topics: ["Reclamação trabalhista", "Verbas rescisórias", "Horas extras", "Reconhecimento de vínculo", "Assédio moral"],
+    description: "Orientação sobre direitos e deveres nas relações de trabalho.",
+    topics: ["Relações de trabalho", "Direitos trabalhistas"],
   },
 ];
 
@@ -94,10 +93,10 @@ function TopRule() {
   );
 }
 
-function CardHeader({ area, index, large = false }: { area: Area; index: number; large?: boolean }) {
+function CardHeader({ area, large = false }: { area: Area; large?: boolean }) {
   const Icon = area.icon;
   return (
-    <div className="flex items-start justify-between">
+    <div className="flex">
       <span
         className={`flex shrink-0 items-center justify-center rounded-full border border-accent/60 text-terracotta ${fade} group-hover:border-accent/60 group-hover:bg-white/5 group-hover:text-accent ${
           large ? "size-14" : "size-12"
@@ -105,45 +104,17 @@ function CardHeader({ area, index, large = false }: { area: Area; index: number;
       >
         <Icon aria-hidden="true" className="size-5.5" strokeWidth={1.25} />
       </span>
-      <span
-        aria-hidden="true"
-        className={`text-sm font-medium tabular-nums tracking-[0.18em] text-primary/35 group-hover:text-white/40 ${fade}`}
-      >
-        {String(index + 1).padStart(2, "0")}
-      </span>
     </div>
   );
 }
 
-// CTA no rodapé do card: mt-auto encosta no fundo quando o card estica na linha do grid.
-function CardCta({ area, className = "" }: { area: Area; className?: string }) {
-  return (
-    <div className={`mt-auto pt-6 ${className}`}>
-      <a
-        href={whatsappLink(`Olá! Gostaria de conversar sobre uma questão de ${area.title}.`)}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="group/link inline-flex min-h-11 items-center gap-2 text-sm font-medium text-primary underline decoration-accent decoration-1 underline-offset-[6px] transition-[color,text-decoration-color] duration-700 ease-soft group-hover:text-white hover:decoration-sand group-hover:focus-visible:outline-accent"
-      >
-        Conversar sobre {area.title}
-        <ArrowUpRight
-          aria-hidden="true"
-          className="size-4 text-terracotta transition-[transform,color] duration-300 ease-soft group-hover:text-accent group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"
-          strokeWidth={1.5}
-        />
-        <span className="sr-only"> pelo WhatsApp (abre em nova aba)</span>
-      </a>
-    </div>
-  );
-}
-
-function FeaturedCard({ area, index }: { area: Area; index: number }) {
+function FeaturedCard({ area }: { area: Area }) {
   return (
     // Tablet: destaque ocupa a linha inteira (2 colunas estreitas deixavam o card Penal com vazio).
     <article className={`${cardBase} p-7 sm:p-10 md:col-span-2 lg:col-span-3`}>
       <FillLayer />
       <TopRule />
-      <CardHeader area={area} index={index} large />
+      <CardHeader area={area} large />
       <p className={`mt-7 flex items-center gap-2.5 text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-terracotta group-hover:text-accent ${fade}`}>
         <span aria-hidden="true" className={`size-1.5 rotate-45 bg-terracotta group-hover:bg-accent ${fade}`} />
         Atuação principal
@@ -163,12 +134,27 @@ function FeaturedCard({ area, index }: { area: Area; index: number }) {
           </li>
         ))}
       </ul>
-      <CardCta area={area} />
+      <div className="mt-auto pt-6">
+        <a
+          href={whatsappLink(`Olá! Gostaria de conversar sobre uma questão de ${area.title}.`)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group/link inline-flex min-h-11 items-center gap-2 text-sm font-medium text-primary underline decoration-accent decoration-1 underline-offset-[6px] transition-[color,text-decoration-color] duration-700 ease-soft group-hover:text-white hover:decoration-sand group-hover:focus-visible:outline-accent"
+        >
+          Conversar sobre {area.title}
+          <ArrowUpRight
+            aria-hidden="true"
+            className="size-4 text-terracotta transition-[transform,color] duration-300 ease-soft group-hover:text-accent group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"
+            strokeWidth={1.5}
+          />
+          <span className="sr-only"> pelo WhatsApp (abre em nova aba)</span>
+        </a>
+      </div>
     </article>
   );
 }
 
-function AreaCard({ area, index, wide = false }: { area: Area; index: number; wide?: boolean }) {
+function AreaCard({ area, wide = false }: { area: Area; wide?: boolean }) {
   return (
     <article
       className={`${cardBase} p-6 sm:p-8 lg:col-span-2 ${
@@ -179,13 +165,13 @@ function AreaCard({ area, index, wide = false }: { area: Area; index: number; wi
       <FillLayer />
       <TopRule />
       <div>
-        <CardHeader area={area} index={index} />
+        <CardHeader area={area} />
         <h3 className={`mt-6 text-[1.5rem] leading-[1.15] tracking-[-0.01em] text-primary group-hover:text-white sm:text-[1.625rem] ${fade}`}>
           {area.title}
         </h3>
         <p className={`mt-3 text-[0.9375rem] leading-[1.7] text-primary/75 group-hover:text-sand/80 ${fade}`}>{area.description}</p>
       </div>
-      <ul className={`flex flex-wrap gap-2 pt-7 ${wide ? "md:justify-end md:pt-0 lg:justify-start lg:pt-7" : ""}`}>
+      <ul className={`mt-auto flex flex-wrap gap-2 pt-7 ${wide ? "md:justify-end md:pt-0 lg:justify-start lg:pt-7" : ""}`}>
         {area.topics.map((topic) => (
           <li
             key={topic}
@@ -195,7 +181,6 @@ function AreaCard({ area, index, wide = false }: { area: Area; index: number; wi
           </li>
         ))}
       </ul>
-      <CardCta area={area} className={wide ? "md:col-span-2" : ""} />
     </article>
   );
 }
@@ -219,10 +204,10 @@ export function PracticeAreas() {
         {/* Mobile: carrossel horizontal com scroll-snap; md+: grid. */}
         <div className="-mx-5 mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 pt-1 scrollbar-none sm:-mx-8 sm:mt-12 sm:gap-5 sm:px-8 md:mx-0 md:grid md:snap-none md:grid-cols-2 md:overflow-visible md:p-0 lg:grid-cols-6 lg:gap-6">
           {featured.map((area) => (
-            <FeaturedCard key={area.title} area={area} index={areas.indexOf(area)} />
+            <FeaturedCard key={area.title} area={area} />
           ))}
           {others.map((area, i) => (
-            <AreaCard key={area.title} area={area} index={areas.indexOf(area)} wide={i === others.length - 1} />
+            <AreaCard key={area.title} area={area} wide={i === others.length - 1} />
           ))}
         </div>
       </div>

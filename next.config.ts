@@ -20,6 +20,7 @@ const nextConfig: NextConfig = {
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
+  images: { qualities: [75, 90] },
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {
